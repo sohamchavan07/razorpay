@@ -1,0 +1,735 @@
+<style>
+  /* Reset and Base Styles */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    line-height: 1.6;
+  }
+
+  /* Payment Container */
+  .payment-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .payment-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .payment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+  }
+
+  /* Header Section */
+  .payment-header {
+    text-align: center;
+    padding: 40px 30px 30px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+  }
+
+  .payment-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .payment-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+
+  .payment-subtitle {
+    color: #666;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  /* Security Badge */
+  .security-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #f0f9ff;
+    color: #0369a1;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    margin: 0 30px 30px;
+  }
+
+  /* Form Styles */
+  .form-section {
+    padding: 0 30px 30px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 2px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    background: #ffffff;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  .form-input:invalid {
+    border-color: #ef4444;
+  }
+
+  .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .currency-symbol {
+    position: absolute;
+    left: 16px;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 16px;
+    z-index: 1;
+  }
+
+  .input-group .form-input {
+    padding-left: 40px;
+  }
+
+  .currency-input {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .form-help {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  /* Payment Method Info */
+  .payment-method-info {
+    background: #f8f9ff;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .payment-method-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .payment-method-card svg {
+    color: #667eea;
+  }
+
+  .payment-method-details h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .payment-method-details p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .supported-methods {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .method-badge {
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* Payment Button */
+  .payment-actions {
+    padding: 0 30px 30px;
+  }
+
+  .payment-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .payment-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  .payment-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .payment-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-loading {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Status Messages */
+  .payment-message {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .status-message {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 16px;
+  }
+
+  .error-message {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+  }
+
+  .success-message {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 640px) {
+    .payment-container {
+      padding: 0 10px;
+    }
+
+    .payment-header {
+      padding: 30px 20px 20px;
+    }
+
+    .form-section {
+      padding: 0 20px 20px;
+    }
+
+    .payment-actions {
+      padding: 0 20px 20px;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .security-badge {
+      margin: 0 20px 20px;
+      font-size: 13px;
+    }
+  }
+
+  /* Razorpay Integration Styling */
+  .razorpay-checkout {
+    background: transparent;
+    padding: 0;
+    border: none;
+    outline: none;
+  }
+</style>
+
+<div class="payment-container">
+  <div class="payment-card">
+    <!-- Header Section -->
+    <div class="payment-header">
+      <div class="payment-logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1 class="payment-title">Secure Payment</h1>
+      <p class="payment-subtitle">Complete your transaction safely and securely</p>
+    </div>
+
+    <!-- Security Badge -->
+    <div class="security-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22S2 18 2 12V5L12 2L22 5V12C22 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>256-bit SSL encryption</span>
+    </div>
+
+    <form id="payment-form" novalidate aria-describedby="error success">
+      <!-- Amount Section -->
+      <div class="form-section">
+        <h3 class="section-title">Payment Details</h3>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label" for="amount">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1V23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6312 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6312 13.6815 18 14.5717 18 15.5C18 16.4283 17.6312 17.3185 16.9749 17.9749C16.3185 18.6312 15.4283 19 14.5 19H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Amount
+            </label>
+            <div class="input-group">
+              <span class="currency-symbol">₹</span>
+              <input class="form-input" id="amount" name="amount" type="number" inputmode="decimal" min="1" step="0.01" value="<%= (params[:amount].presence || 199).to_f.round(2) %>" placeholder="199.00" required aria-required="true" />
+            </div>
+            <div class="form-help">Enter amount in Indian Rupees</div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="currency">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Currency
+            </label>
+            <input class="form-input currency-input" id="currency" name="currency" type="text" value="<%= (params[:currency] || 'INR').to_s.upcase %>" maxlength="3" autocapitalize="characters" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Information -->
+      <div class="form-section">
+        <h3 class="section-title">Personal Information</h3>
+        <div class="form-field">
+          <label class="form-label" for="full_name">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Full Name
+          </label>
+          <input class="form-input" id="full_name" name="full_name" type="text" value="<%= params[:full_name] %>" placeholder="Enter your full name" required />
+        </div>
+      </div>
+
+      <!-- Payment Method Info -->
+      <div class="form-section">
+        <h3 class="section-title">Payment Method</h3>
+        <div class="payment-method-info">
+          <div class="payment-method-card">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+              <line x1="1" y1="10" x2="23" y2="10" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <div class="payment-method-details">
+              <h4>Secure Payment Gateway</h4>
+              <p>Powered by Razorpay - Accept cards, UPI, net banking, and more</p>
+            </div>
+          </div>
+          <div class="supported-methods">
+            <span class="method-badge">Cards</span>
+            <span class="method-badge">UPI</span>
+            <span class="method-badge">Net Banking</span>
+            <span class="method-badge">Wallets</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Button -->
+      <div class="payment-actions">
+        <button id="pay-button" type="submit" class="payment-btn" aria-live="polite">
+          <span class="btn-content">
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span class="btn-text">Complete Payment</span>
+          </span>
+          <span class="btn-loading">
+            <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+            <span class="loading-text"></span>
+          </span>
+        </button>
+        
+        <div id="message" class="payment-message" aria-live="polite"></div>
+      </div>
+
+      <!-- Status Messages -->
+      <div id="error" class="status-message error-message" role="alert" aria-live="assertive">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
+          <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="message-text"></span>
+      </div>
+      
+      <div id="success" class="status-message success-message" aria-live="polite">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 11.08V12A10 10 0 1 1 5.93 5.93" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="message-text"></span>
+      </div>
+
+      <!-- Hidden Fields -->
+      <input type="hidden" id="razorpay-key" value="<%= @razorpay_key_id %>" />
+      <input type="hidden" id="create-order-url" value="<%= url_for('/create_order') %>" />
+      <input type="hidden" id="verify-payment-url" value="<%= url_for('/verify_payment') %>" />
+      <input type="hidden" id="csrf-token" value="<%= form_authenticity_token %>" />
+     
+      <%= csrf_meta_tags %>
+    </form>
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  (function() {
+    function once(fn) {
+      let done = false;
+      return function() {
+        if (done) return;
+        done = true;
+        return fn.apply(this, arguments);
+      };
+    }
+
+    const init = once(function initRazorpayPayment() {
+      const form = document.getElementById('payment-form');
+      const errorEl = document.getElementById('error');
+      const successEl = document.getElementById('success');
+      const payBtn = document.getElementById('pay-button');
+      const message = document.getElementById('message');
+      
+      if (!form || !errorEl || !successEl || !payBtn || !message) {
+        console.error('Required form elements not found');
+        return;
+      }
+
+      const btnContent = payBtn.querySelector('.btn-content');
+      const btnLoading = payBtn.querySelector('.btn-loading');
+      const razorpayKeyEl = document.getElementById('razorpay-key');
+      const createOrderUrlEl = document.getElementById('create-order-url');
+      const verifyPaymentUrlEl = document.getElementById('verify-payment-url');
+      const csrfTokenEl = document.getElementById('csrf-token');
+      
+      if (!btnContent || !btnLoading || !razorpayKeyEl || !createOrderUrlEl || !verifyPaymentUrlEl || !csrfTokenEl) {
+        console.error('Required hidden elements not found');
+        return;
+      }
+
+      const razorpayKey = razorpayKeyEl.value;
+      const createOrderUrl = createOrderUrlEl.value;
+      const verifyPaymentUrl = verifyPaymentUrlEl.value;
+      const csrfToken = csrfTokenEl.value;
+
+      if (!razorpayKey) {
+        const messageText = errorEl.querySelector('.message-text');
+        if (messageText) {
+          messageText.textContent = 'Razorpay key is not configured.';
+          errorEl.style.display = 'flex';
+        }
+        return;
+      }
+
+      function setLoading(loading, label = 'Processing...') {
+        payBtn.disabled = loading;
+        btnContent.style.display = loading ? 'none' : 'flex';
+        btnLoading.style.display = loading ? 'flex' : 'none';
+        if (loading) {
+          btnLoading.querySelector('.loading-text').textContent = label;
+        }
+        message.textContent = loading ? label : '';
+      }
+
+      if (!form.__razorpaySubmitBound) {
+        form.__razorpaySubmitBound = true;
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          errorEl.style.display = 'none';
+          successEl.style.display = 'none';
+          setLoading(true, 'Validating...');
+
+          const amountRupeesStr = document.getElementById('amount').value;
+          const currencyStr = (document.getElementById('currency').value || '').toUpperCase().trim();
+          const fullNameStr = (document.getElementById('full_name').value || '').trim();
+
+          const amountRupees = parseFloat(amountRupeesStr);
+          if (!Number.isFinite(amountRupees) || amountRupees <= 0) {
+            setLoading(false);
+            const messageText = errorEl.querySelector('.message-text');
+            if (messageText) {
+              messageText.textContent = 'Please enter a valid amount in rupees.';
+              errorEl.style.display = 'flex';
+            }
+            return;
+          }
+          if (!/^[A-Z]{3}$/.test(currencyStr)) {
+            setLoading(false);
+            const messageText = errorEl.querySelector('.message-text');
+            if (messageText) {
+              messageText.textContent = 'Please enter a valid 3-letter currency code.';
+              errorEl.style.display = 'flex';
+            }
+            return;
+          }
+          if (fullNameStr.length < 2) {
+            setLoading(false);
+            const messageText = errorEl.querySelector('.message-text');
+            if (messageText) {
+              messageText.textContent = 'Please enter your full name.';
+              errorEl.style.display = 'flex';
+            }
+            return;
+          }
+
+          setLoading(true, 'Creating order...');
+
+          const amountPaise = Math.round(amountRupees * 100);
+          const payload = {
+            amount: amountPaise,
+            currency: currencyStr,
+            full_name: fullNameStr
+          };
+
+          let orderData;
+          try {
+            const res = await fetch(createOrderUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+              },
+              body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              throw new Error(data.error || 'Failed to create order');
+            }
+            orderData = data;
+          } catch (err) {
+            setLoading(false);
+            const messageText = errorEl.querySelector('.message-text');
+            if (messageText) {
+              messageText.textContent = err.message || 'Failed to create order';
+              errorEl.style.display = 'flex';
+            }
+            return;
+          }
+
+          setLoading(true, 'Opening payment gateway...');
+
+          const options = {
+            key: razorpayKey,
+            amount: orderData.amount,
+            currency: orderData.currency,
+            name: "Your Company",
+            description: "Payment for services",
+            order_id: orderData.order_id,
+            prefill: {
+              name: fullNameStr,
+              email: "",
+              contact: ""
+            },
+            theme: {
+              color: "#667eea"
+            },
+            handler: async function (response) {
+              setLoading(true, 'Verifying payment...');
+              try {
+                const verifyRes = await fetch(verifyPaymentUrl, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': csrfToken
+                  },
+                  body: JSON.stringify(response)
+                });
+                const verifyData = await verifyRes.json();
+                
+                setLoading(false);
+                if (verifyRes.ok && verifyData.success) {
+                  const successMessageText = successEl.querySelector('.message-text');
+                  if (successMessageText) {
+                    successMessageText.textContent = 'Payment successful! Transaction ID: ' + response.razorpay_payment_id;
+                    successEl.style.display = 'flex';
+                  }
+                } else {
+                  const messageText = errorEl.querySelector('.message-text');
+                  if (messageText) {
+                    messageText.textContent = verifyData.error || 'Payment verification failed';
+                    errorEl.style.display = 'flex';
+                  }
+                }
+              } catch (err) {
+                setLoading(false);
+                const messageText = errorEl.querySelector('.message-text');
+                if (messageText) {
+                  messageText.textContent = 'Payment verification failed';
+                  errorEl.style.display = 'flex';
+                }
+              }
+            },
+            modal: {
+              ondismiss: function() {
+                setLoading(false);
+                const messageText = errorEl.querySelector('.message-text');
+                if (messageText) {
+                  messageText.textContent = 'Payment was cancelled';
+                  errorEl.style.display = 'flex';
+                }
+              }
+            }
+          };
+
+          try {
+            const rzp = new Razorpay(options);
+            rzp.open();
+          } catch (err) {
+            setLoading(false);
+            const messageText = errorEl.querySelector('.message-text');
+            if (messageText) {
+              messageText.textContent = 'Failed to open payment gateway';
+              errorEl.style.display = 'flex';
+            }
+          }
+        });
+      }
+    });
+
+    // Handle Turbo navigation events and normal loads
+    document.addEventListener('turbo:load', init);
+    document.addEventListener('DOMContentLoaded', init);
+  })();
+</script>

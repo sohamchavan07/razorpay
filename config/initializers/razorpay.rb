@@ -1,9 +1,9 @@
-require 'razorpay'
-
+# Razorpay Configuration
+# These are test credentials - replace with your production keys for live payments
 Razorpay.setup(
-  Rails.application.credentials.razorpay_key_id,
-  Rails.application.credentials.razorpay_key_secret
+  ENV['RAZORPAY_KEY_ID'] || 'rzp_test_RPMGT6LIDBDvjv',
+  ENV['RAZORPAY_KEY_SECRET'] || 'JAeTMns5qYXboFgT7leu4CKy'
 )
 
-# Configure webhook secret for signature verification
-Rails.application.config.razorpay_webhook_secret = Rails.application.credentials.razorpay_webhook_secret
+# Log configuration for debugging
+Rails.logger.info "Razorpay configured with Key ID: #{ENV['RAZORPAY_KEY_ID'] || 'rzp_test_RPMGT6LIDBDvjv'}"

@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Payment routes
+  post '/create_order', to: 'payments#create_order'
+  post '/verify_payment', to: 'payments#verify_payment'
+  get '/payments/new', to: 'payments#new'
+
   # API routes
   namespace :api do
     namespace :v1 do
@@ -35,5 +40,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "api/v1/health#index"
+  root "payments#new"
 end
