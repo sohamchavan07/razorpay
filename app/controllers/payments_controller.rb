@@ -67,11 +67,11 @@ class PaymentsController < ApplicationController
       unless payment_id.present?
         return render json: { error: "Missing payment ID" }, status: :bad_request
       end
-      
+
       unless order_id.present?
         return render json: { error: "Missing order ID" }, status: :bad_request
       end
-      
+
       unless signature.present?
         return render json: { error: "Missing signature" }, status: :bad_request
       end
