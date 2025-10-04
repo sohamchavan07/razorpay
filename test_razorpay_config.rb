@@ -10,25 +10,25 @@ puts "=" * 50
 begin
   # Test Razorpay setup
   puts "✅ Razorpay gem loaded successfully"
-  
+
   # Check if we can create a test order
   puts "🔍 Testing order creation..."
-  
+
   test_order = Razorpay::Order.create(
     amount: 100, # ₹1 in paise
     currency: 'INR',
     receipt: "test_#{Time.now.to_i}"
   )
-  
+
   puts "✅ Test order created successfully!"
   puts "   Order ID: #{test_order.id}"
   puts "   Amount: #{test_order.amount}"
   puts "   Currency: #{test_order.currency}"
   puts "   Status: #{test_order.status}"
-  
+
   puts "\n🎉 Razorpay configuration is working correctly!"
   puts "💡 You can now start the Rails server and test payments"
-  
+
 rescue Razorpay::Error => e
   puts "❌ Razorpay Error: #{e.message}"
   puts "💡 Check your Razorpay credentials"

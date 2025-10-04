@@ -7,19 +7,19 @@ class Refund < ApplicationRecord
   validates :reason, presence: true
   validates :idempotency_key, uniqueness: true, allow_nil: true
 
-  scope :processed, -> { where(status: 'processed') }
-  scope :failed, -> { where(status: 'failed') }
-  scope :pending, -> { where(status: 'pending') }
+  scope :processed, -> { where(status: "processed") }
+  scope :failed, -> { where(status: "failed") }
+  scope :pending, -> { where(status: "pending") }
 
   def processed?
-    status == 'processed'
+    status == "processed"
   end
 
   def failed?
-    status == 'failed'
+    status == "failed"
   end
 
   def pending?
-    status == 'pending'
+    status == "pending"
   end
 end

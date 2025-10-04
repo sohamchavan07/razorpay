@@ -7,7 +7,7 @@ class SavedCard < ApplicationRecord
   validates :expiry_year, presence: true, numericality: { greater_than_or_equal_to: Date.current.year }
   validates :card_type, presence: true
 
-  scope :active, -> { where('expiry_year > ? OR (expiry_year = ? AND expiry_month >= ?)', Date.current.year, Date.current.year, Date.current.month) }
+  scope :active, -> { where("expiry_year > ? OR (expiry_year = ? AND expiry_month >= ?)", Date.current.year, Date.current.year, Date.current.month) }
 
   def expired?
     expiry_year < Date.current.year || (expiry_year == Date.current.year && expiry_month < Date.current.month)

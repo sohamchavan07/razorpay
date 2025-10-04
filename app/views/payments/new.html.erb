@@ -665,6 +665,16 @@
             theme: {
               color: "#667eea"
             },
+            method: {
+              netbanking: true,
+              wallet: true,
+              upi: true,
+              card: true
+            },
+            notes: {
+              source: "web_app",
+              version: "1.0"
+            },
             handler: async function (response) {
               setLoading(true, 'Verifying payment...');
               try {
@@ -710,6 +720,10 @@
                   errorEl.style.display = 'flex';
                 }
               }
+            },
+            retry: {
+              enabled: true,
+              max_count: 3
             }
           };
 

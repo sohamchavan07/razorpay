@@ -7,20 +7,20 @@ class Payment < ApplicationRecord
   validates :currency, presence: true
   validates :status, presence: true, inclusion: { in: %w[created authorized captured refunded failed] }
 
-  scope :captured, -> { where(status: 'captured') }
-  scope :refunded, -> { where(status: 'refunded') }
-  scope :failed, -> { where(status: 'failed') }
+  scope :captured, -> { where(status: "captured") }
+  scope :refunded, -> { where(status: "refunded") }
+  scope :failed, -> { where(status: "failed") }
 
   def captured?
-    status == 'captured'
+    status == "captured"
   end
 
   def refunded?
-    status == 'refunded'
+    status == "refunded"
   end
 
   def failed?
-    status == 'failed'
+    status == "failed"
   end
 
   def total_refunded_amount

@@ -1,7 +1,7 @@
 class Api::V1::Admin::RefundsController < Api::V1::BaseController
   include JwtAuthentication
   before_action :authenticate_admin!
-  before_action :set_payment, only: [:create]
+  before_action :set_payment, only: [ :create ]
 
   def create
     begin
@@ -11,12 +11,12 @@ class Api::V1::Admin::RefundsController < Api::V1::BaseController
       end
 
       refund_amount = refund_params[:amount] || @payment.amount
-      
+
       # Check if refund amount is valid
       if refund_amount > @payment.refundable_amount
-        return render json: { 
-          error: "Refund amount exceeds refundable amount", 
-          refundable_amount: @payment.refundable_amount 
+        return render json: {
+          error: "Refund amount exceeds refundable amount",
+          refundable_amount: @payment.refundable_amount
         }, status: :unprocessable_entity
       end
 
@@ -53,7 +53,7 @@ class Api::V1::Admin::RefundsController < Api::V1::BaseController
 
       # Update payment status if fully refunded
       if @payment.fully_refunded?
-        @payment.update!(status: 'refunded')
+        @payment.update!(status: "refunded")
       end
 
       render json: {
@@ -96,7 +96,7 @@ class Api::V1::Admin::RefundsController < Api::V1::BaseController
 
   def set_payment
     @payment = Payment.find_by(razorpay_payment_id: refund_params[:payment_id])
-    
+
     unless @payment
       render json: { error: "Payment not found" }, status: :not_found
     end

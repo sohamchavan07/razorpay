@@ -1,5 +1,5 @@
 class Api::V1::SubscriptionsController < Api::V1::BaseController
-  before_action :set_subscription, only: [:show, :update, :destroy]
+  before_action :set_subscription, only: [ :show, :update, :destroy ]
 
   def create
     begin
@@ -47,7 +47,7 @@ class Api::V1::SubscriptionsController < Api::V1::BaseController
     begin
       # Fetch latest data from Razorpay
       razorpay_subscription = Razorpay::Subscription.fetch(@subscription.razorpay_subscription_id)
-      
+
       # Update local record with latest data
       @subscription.update!({
         status: razorpay_subscription.status,
@@ -70,11 +70,11 @@ class Api::V1::SubscriptionsController < Api::V1::BaseController
     begin
       # Update subscription on Razorpay based on action
       case params[:action_type]
-      when 'pause'
+      when "pause"
         razorpay_subscription = Razorpay::Subscription.pause(@subscription.razorpay_subscription_id)
-      when 'resume'
+      when "resume"
         razorpay_subscription = Razorpay::Subscription.resume(@subscription.razorpay_subscription_id)
-      when 'cancel'
+      when "cancel"
         razorpay_subscription = Razorpay::Subscription.cancel(@subscription.razorpay_subscription_id, {
           cancel_at_cycle_end: params[:cancel_at_cycle_end] || false
         })
@@ -124,7 +124,7 @@ class Api::V1::SubscriptionsController < Api::V1::BaseController
 
   def subscription_params
     params.require(:subscription).permit(
-      :email, :name, :plan_id, :quantity, :total_count, 
+      :email, :name, :plan_id, :quantity, :total_count,
       :start_at, :expire_by, :addons, :notes
     )
   end

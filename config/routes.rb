@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Payment routes
-  post '/create_order', to: 'payments#create_order'
-  post '/verify_payment', to: 'payments#verify_payment'
-  get '/payments/new', to: 'payments#new'
+  post "/create_order", to: "payments#create_order"
+  post "/verify_payment", to: "payments#verify_payment"
+  get "/payments/new", to: "payments#new"
 
   # API routes
   namespace :api do

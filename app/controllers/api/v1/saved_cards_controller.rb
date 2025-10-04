@@ -1,6 +1,6 @@
 class Api::V1::SavedCardsController < Api::V1::BaseController
   before_action :set_user
-  before_action :set_saved_card, only: [:destroy]
+  before_action :set_saved_card, only: [ :destroy ]
 
   def create
     begin
@@ -28,7 +28,7 @@ class Api::V1::SavedCardsController < Api::V1::BaseController
 
   def index
     saved_cards = @user.saved_cards.active.includes(:user)
-    
+
     render json: {
       saved_cards: saved_cards.map { |card| saved_card_response(card) },
       count: saved_cards.count
@@ -39,7 +39,7 @@ class Api::V1::SavedCardsController < Api::V1::BaseController
     begin
       # Delete card from Razorpay
       Razorpay::Card.delete(@saved_card.razorpay_card_id)
-      
+
       # Delete local record
       @saved_card.destroy!
 

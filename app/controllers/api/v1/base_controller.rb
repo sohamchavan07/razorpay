@@ -1,6 +1,6 @@
 class Api::V1::BaseController < ApplicationController
   protect_from_forgery with: :null_session
-  
+
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
   rescue_from StandardError, with: :internal_server_error
