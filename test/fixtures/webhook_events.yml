@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  razorpay_event_id: MyString
+  event_type: MyString
+  status: MyString
+  processed_at: 2025-10-03 23:35:32
+  raw_data: MyText
+
+two:
+  razorpay_event_id: MyString
+  event_type: MyString
+  status: MyString
+  processed_at: 2025-10-03 23:35:32
+  raw_data: MyText

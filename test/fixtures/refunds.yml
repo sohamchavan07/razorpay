@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  razorpay_refund_id: MyString
+  payment: one
+  amount: 1
+  status: MyString
+  reason: MyString
+  notes: MyText
+  idempotency_key: MyString
+
+two:
+  razorpay_refund_id: MyString
+  payment: two
+  amount: 1
+  status: MyString
+  reason: MyString
+  notes: MyText
+  idempotency_key: MyString

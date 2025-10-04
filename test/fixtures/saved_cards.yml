@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  razorpay_card_id: MyString
+  last4: MyString
+  expiry_month: 1
+  expiry_year: 1
+  card_type: MyString
+
+two:
+  user: two
+  razorpay_card_id: MyString
+  last4: MyString
+  expiry_month: 1
+  expiry_year: 1
+  card_type: MyString

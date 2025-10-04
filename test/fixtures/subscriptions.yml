@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  razorpay_subscription_id: MyString
+  plan_id: MyString
+  status: MyString
+  started_at: 2025-10-03 23:34:46
+  current_start: 2025-10-03 23:34:46
+  current_end: 2025-10-03 23:34:46
+  ended_at: 2025-10-03 23:34:46
+  quantity: 1
+  charge_at: 2025-10-03 23:34:46
+
+two:
+  user: two
+  razorpay_subscription_id: MyString
+  plan_id: MyString
+  status: MyString
+  started_at: 2025-10-03 23:34:46
+  current_start: 2025-10-03 23:34:46
+  current_end: 2025-10-03 23:34:46
+  ended_at: 2025-10-03 23:34:46
+  quantity: 1
+  charge_at: 2025-10-03 23:34:46

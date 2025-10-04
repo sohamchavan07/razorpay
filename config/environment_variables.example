@@ -1,0 +1,20 @@
+# Razorpay Configuration
+RAZORPAY_KEY_ID=your_razorpay_key_id_here
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret_here
+RAZORPAY_WEBHOOK_SECRET=your_webhook_secret_here
+
+# JWT Configuration
+JWT_SECRET=your_jwt_secret_here
+
+# Admin Configuration
+ADMIN_TOKEN=your_admin_token_here
+
+# Database Configuration (if using different database)
+DATABASE_URL=sqlite3:db/development.sqlite3
+
+# Redis Configuration (for Sidekiq)
+REDIS_URL=redis://localhost:6379/0
+
+# Application Configuration
+RAILS_ENV=development
+SECRET_KEY_BASE=your_secret_key_base_here
