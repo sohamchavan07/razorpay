@@ -43,6 +43,9 @@ gem "thruster", require: false
 # Razorpay integration for payments
 gem "razorpay"
 
+# Environment variables
+gem "dotenv-rails"
+
 # JWT for authentication
 gem "jwt"
 

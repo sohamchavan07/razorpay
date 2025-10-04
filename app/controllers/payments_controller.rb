@@ -63,16 +63,24 @@ class PaymentsController < ApplicationController
       order_id = params[:razorpay_order_id]
       signature = params[:razorpay_signature]
 
-      # Validate required parameters
-      unless payment_id.present? && order_id.present? && signature.present?
-        return render json: { error: "Missing payment parameters" }, status: :bad_request
+      # Validate required parameters with more detailed checks
+      unless payment_id.present?
+        return render json: { error: "Missing payment ID" }, status: :bad_request
+      end
+      
+      unless order_id.present?
+        return render json: { error: "Missing order ID" }, status: :bad_request
+      end
+      
+      unless signature.present?
+        return render json: { error: "Missing signature" }, status: :bad_request
       end
 
       # Verify payment signature
       Razorpay::Utility.verify_payment_signature(
-        "razorpay_order_id" => order_id,
-        "razorpay_payment_id" => payment_id,
-        "razorpay_signature" => signature
+        razorpay_order_id: order_id,
+        razorpay_payment_id: payment_id,
+        razorpay_signature: signature
       )
 
       # Fetch payment details from Razorpay
@@ -90,7 +98,7 @@ class PaymentsController < ApplicationController
         amount: payment.amount,
         currency: payment.currency
       }
-    rescue Razorpay::SignatureVerificationError => e
+    rescue SecurityError => e
       Rails.logger.error "Signature verification failed: #{e.message}"
       render json: {
         success: false,
