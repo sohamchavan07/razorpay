@@ -1,0 +1,72 @@
+<%= stylesheet_link_tag 'subscription_plans', 'data-turbo-track': 'reload' %>
+
+<div class="plans-page">
+  <header class="plans-header">
+    <div class="plans-brand">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="plans-title">
+      <h1>Subscription Plans</h1>
+      <p class="muted">Choose a plan that fits your needs. Secure billing powered by Razorpay.</p>
+    </div>
+  </header>
+
+  <main class="plans-main">
+    <section class="plans-grid" role="list">
+      <% @plans.each do |plan| %>
+        <article class="plan-card" role="listitem" aria-labelledby="plan-<%= plan[:id] %>-name">
+          <header class="plan-card-header">
+            <h2 id="plan-<%= plan[:id] %>-name"><%= plan[:name] %></h2>
+            <div class="plan-price" aria-hidden="true">
+              <span class="currency">₹</span>
+              <span class="amount"><%= plan[:price] %></span>
+              <span class="interval">/<%= plan[:interval] %></span>
+            </div>
+          </header>
+
+          <ul class="plan-features">
+            <% plan[:features].each do |f| %>
+              <li><%= f %></li>
+            <% end %>
+          </ul>
+
+          <div class="plan-actions">
+            <%= button_to 'Subscribe', '#', method: :get, class: 'subscribe-btn', data: { plan_id: plan[:id] }, aria: { label: "Subscribe to #{plan[:name]}" } %>
+            <a class="learn-more" href="#">Learn more</a>
+          </div>
+        </article>
+      <% end %>
+    </section>
+  </main>
+
+  <footer class="plans-footer">
+    <p class="muted">Need help choosing a plan? <a href="mailto:support@example.com">Contact support</a></p>
+  </footer>
+</div>
+
+<script>
+  // Minimal client-side handler: intercept subscribe buttons and redirect to subscription creation flow.
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.subscribe-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        // Prevent default form submission since we don't yet have a subscription flow route.
+        e.preventDefault();
+        var planId = btn.dataset.planId || btn.getAttribute('data-plan-id');
+        // For now, navigate to payments page with suggested amount
+        var url = '/payments/new?amount=' + encodeURIComponent((function(){
+          var plan = (window.RAZORPLANS || []).find(function(p){return p.id===planId});
+          return plan ? plan.price : '';
+        })());
+        window.location.href = url;
+      });
+    });
+  });
+</script>
+
+<script>
+  // Expose plans to the page for the small client-side handler.
+  window.RAZORPLANS = <%= raw(@plans.to_json) %>;
+</script>

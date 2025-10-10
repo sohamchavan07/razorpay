@@ -41,4 +41,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "payments#new"
+
+  # Subscription plans page (marketing/catalog page)
+  get "/subscription_plans", to: "subscription_plans#index", as: :subscription_plans
 end
